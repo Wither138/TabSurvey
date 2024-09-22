@@ -14,11 +14,11 @@ RUN opt/conda/bin/jupyter notebook --generate-config
 
 # Set up Sklearn environment
 RUN /opt/conda/bin/conda create -n sklearn -y scikit-learn
-RUN /opt/conda/bin/conda install -n sklearn -y numpy==1.23.5
 RUN /opt/conda/bin/conda install -n sklearn -y -c anaconda ipykernel
 RUN /opt/conda/envs/sklearn/bin/python -m ipykernel install --user --name=sklearn
 RUN /opt/conda/bin/conda install -n sklearn -y -c conda-forge optuna
 RUN /opt/conda/bin/conda install -n sklearn -y -c conda-forge configargparse
+RUN /opt/conda/bin/conda install -n sklearn -y numpy==1.23.5
 RUN /opt/conda/bin/conda install -n sklearn -y pandas
 
 #############################################################################################################
@@ -73,8 +73,8 @@ RUN /opt/conda/bin/conda create -n tensorflow -y tensorflow-gpu=1.15.0 keras
 RUN /opt/conda/bin/conda install -n tensorflow -y -c anaconda ipykernel
 RUN /opt/conda/bin/conda install -n tensorflow -y -c conda-forge optuna
 RUN /opt/conda/bin/conda install -n tensorflow -y -c conda-forge configargparse
-RUN /opt/conda/bin/conda install -n tensorflow -y numpy==1.23.5
 RUN /opt/conda/bin/conda install -n tensorflow -y scikit-learn
+RUN /opt/conda/bin/conda install -n tensorflow -y numpy==1.23.5
 RUN /opt/conda/bin/conda install -n tensorflow -y pandas
 
 #############################################################################################################
@@ -94,5 +94,5 @@ RUN /opt/conda/envs/torch/bin/python -m pip install yacs
 # Download code into container
 RUN git clone https://github.com/kathrinse/TabSurvey.git /opt/notebooks
 # Start jupyter notebook
-CMD ["python","train.py"]
-#CMD opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=3123 --no-browser --allow-root
+#CMD ["python","train.py"]
+CMD opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=3123 --no-browser --allow-root
