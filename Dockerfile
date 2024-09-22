@@ -14,6 +14,7 @@ RUN opt/conda/bin/jupyter notebook --generate-config
 
 # Set up Sklearn environment
 RUN /opt/conda/bin/conda create -n sklearn -y scikit-learn
+RUN /opt/conda/bin/conda install -n sklearn -y python==3.10
 RUN /opt/conda/bin/conda install -n sklearn -y -c anaconda ipykernel
 RUN /opt/conda/envs/sklearn/bin/python -m ipykernel install --user --name=sklearn
 RUN /opt/conda/bin/conda install -n sklearn -y -c conda-forge optuna
@@ -25,6 +26,7 @@ RUN /opt/conda/bin/conda install -n sklearn -y pandas
 
 # Set up GBDT environment
 RUN /opt/conda/bin/conda create -n gbdt -y
+RUN /opt/conda/bin/conda install -n gbdt -y python==3.10
 RUN /opt/conda/bin/conda install -n gbdt -y -c anaconda ipykernel
 RUN /opt/conda/envs/gbdt/bin/python -m ipykernel install --user --name=gbdt
 RUN /opt/conda/envs/gbdt/bin/python -m pip install numpy==1.23.5 -i https://pypi.tuna.tsinghua.edu.cn/simple
@@ -42,6 +44,7 @@ RUN /opt/conda/envs/gbdt/bin/python -m pip install https://github.com/schufa-inn
 
 # Set up Pytorch environment
 RUN /opt/conda/bin/conda create -n torch -y pytorch cudatoolkit=11.3 -c pytorch
+RUN /opt/conda/bin/conda install -n torch -y python==3.10
 RUN /opt/conda/bin/conda install -n torch -y -c anaconda ipykernel
 RUN /opt/conda/bin/conda install -n torch -y -c conda-forge optuna
 RUN /opt/conda/bin/conda install -n torch -y -c conda-forge configargparse
@@ -70,11 +73,12 @@ RUN /opt/conda/envs/torch/bin/python -m pip install einops
 
 # Set up Keras environment
 RUN /opt/conda/bin/conda create -n tensorflow -y tensorflow-gpu=1.15.0 keras
+RUN /opt/conda/bin/conda install -n tensorflow -y python==3.7
 RUN /opt/conda/bin/conda install -n tensorflow -y -c anaconda ipykernel
 RUN /opt/conda/bin/conda install -n tensorflow -y -c conda-forge optuna
 RUN /opt/conda/bin/conda install -n tensorflow -y -c conda-forge configargparse
 RUN /opt/conda/bin/conda install -n tensorflow -y scikit-learn
-RUN /opt/conda/bin/conda install -n tensorflow -y numpy==1.23.5
+RUN /opt/conda/bin/conda install -n tensorflow -y numpy
 RUN /opt/conda/bin/conda install -n tensorflow -y pandas
 
 #############################################################################################################
