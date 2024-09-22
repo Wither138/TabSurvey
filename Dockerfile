@@ -92,7 +92,7 @@ RUN /opt/conda/envs/torch/bin/python -m pip install yacs
 #############################################################################################################
 
 # Download code into container
-RUN git clone https://github.com/kathrinse/TabSurvey.git /opt/notebooks
+RUN git clone https://github.com/Wither138/TabSurvey.git /opt/notebooks
 # Start jupyter notebook
 #CMD ["python","train.py"]
 CMD opt/conda/bin/jupyter notebook --notebook-dir=/opt/notebooks --ip='*' --port=3123 --no-browser --allow-root
