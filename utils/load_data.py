@@ -74,7 +74,7 @@ def load_data(args):
         y = df[label].to_numpy()
 
     elif args.dataset == "HIGGS":  # Binary classification dataset with one categorical feature
-        path = "/opt/notebooks/data/HIGGS.csv.gz"
+        path = "/opt/notebooks/data/HIGGS.csv.gz"       #??
         df = pd.read_csv(path, header=None)
         df.columns = ['x' + str(i) for i in range(df.shape[1])]
         num_col = list(df.drop(['x0', 'x21'], 1).columns)
@@ -104,7 +104,16 @@ def load_data(args):
 
         X = df.drop(label_col, axis=1).to_numpy()
         y = df[label_col].to_numpy()
+        
+    elif args.dataset == "Dem_Test":
+        path = "opt/notebooks/data/test_0.xlsx"
+        df = pd.read_excel(path)
 
+        label_col = '序号'        #标签列
+        
+        X = df.drop(label_col, axis=1).to_numpy()       #从一个DataFrame中删除指定的列，然后将剩余的数据转换为NumPy数组
+        y = df[label_col].to_numpy()                #将label列转换为NumPy数组
+        
     else:
         raise AttributeError("Dataset \"" + args.dataset + "\" not available")
 
