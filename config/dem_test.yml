@@ -1,5 +1,5 @@
 # General parameters
-dataset: Dem_Test
+dataset: DemTest
 model_name: TabTransformer # LinearModel, KNN, SVM, DecisionTree, RandomForest, XGBoost, CatBoost, LightGBM, ModelTree
                 # MLP, TabNet, VIME, TabTransformer, RLN, DNFNet, STG, NAM, DeepFM, SAINT
 objective: regression
@@ -32,5 +32,5 @@ epochs: 3000
 logging_period: 100
 
 # About the data
-num_classes: 1  # for regression
 num_features: 4
+num_classes: 1  # for regression

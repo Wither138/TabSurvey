@@ -42,6 +42,7 @@ CONFIGS=( "config/adult.yml"
           "config/covertype.yml"
           "config/california_housing.yml"
           "config/higgs.yml"
+          "config/dem_test.yml"
           )
 
 # conda init bash

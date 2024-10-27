@@ -105,8 +105,8 @@ def load_data(args):
         X = df.drop(label_col, axis=1).to_numpy()
         y = df[label_col].to_numpy()
         
-    elif args.dataset == "Dem_Test":
-        path = "opt/notebooks/data/test_0.xlsx"
+    elif args.dataset == "DemTest":
+        path = "/opt/notebooks/data/test_0.xlsx"
         df = pd.read_excel(path)
 
         label_col = '序号'        #标签列

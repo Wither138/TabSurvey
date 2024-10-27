@@ -127,6 +127,7 @@ def main_once(args):
     model_name = str2model(args.model_name)
 
     parameters = args.parameters[args.dataset][args.model_name]
+    #parameters = args.parameters.get(args.dataset, {}).get(args.model_name, {})
     model = model_name(parameters, args)
 
     sc, time = cross_validation(model, X, y, args)

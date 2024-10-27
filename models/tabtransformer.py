@@ -30,7 +30,7 @@ class TabTransformer(BaseModelTorch):
         print("On Device:", self.device)
 
         # Decreasing some hyperparameter to cope with memory issues
-        dim = self.params["dim"] if args.num_features < 50 else 8
+        dim = self.params.get("dim", 128) if args.num_features < 50 else 64
         self.batch_size = self.args.batch_size if args.num_features < 50 else 64
 
         print("Using dim %d and batch size %d" % (dim, self.batch_size))
@@ -41,18 +41,18 @@ class TabTransformer(BaseModelTorch):
             dim_out=args.num_classes,
             mlp_act=nn.ReLU(),  # activation for final mlp, defaults to relu, but could be anything else (selu etc)
             dim=dim,
-            depth=self.params["depth"],
-            heads=self.params["heads"],
-            attn_dropout=self.params["dropout"],
-            ff_dropout=self.params["dropout"],
+            depth=self.params.get("depth", 6),
+            heads=self.params.get("heads",8),
+            attn_dropout=self.params.get("dropout",0.1),            # attention dropout --what is the default value?
+            ff_dropout=self.params.get("dropout",0.1),            # feedforward dropout --what is the default value?    
             mlp_hidden_mults=(4, 2)
         )  # .to(self.device)
 
         self.to_device()
 
     def fit(self, X, y, X_val=None, y_val=None):
-        learning_rate = 10 ** self.params["learning_rate"]
-        weight_decay = 10 ** self.params["weight_decay"]
+        learning_rate = 10 ** self.params.get("learning_rate", -6)
+        weight_decay = 10 ** self.params.get("weight_decay", -6)
         optimizer = optim.AdamW(self.model.parameters(), lr=learning_rate, weight_decay=weight_decay)
 
         # For some reason this has to be set explicitly to work with categorical data
