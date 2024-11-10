@@ -17,7 +17,7 @@ class TabNet(BaseModelTorch):
         super().__init__(params, args)
 
         # Paper recommends to be n_d and n_a the same
-        self.params["n_a"] = self.params["n_d"]
+        self.params["n_a"] = self.params.get("n_d",8)
 
         self.params["cat_idxs"] = args.cat_idx if args.cat_idx else []
         self.params["cat_dims"] = args.cat_dims

@@ -40,15 +40,15 @@ class VIME(BaseModelTorch):
 
         X_unlab = np.concatenate([X, X_val], axis=0)
 
-        self.fit_self(X_unlab, p_m=self.params["p_m"], alpha=self.params["alpha"])
+        self.fit_self(X_unlab, p_m=self.params.get("p_m",0.1), alpha=self.params.get("alpha",0.1))
 
         if self.args.data_parallel:
             self.encoder_layer = self.model_self.module.input_layer
         else:
             self.encoder_layer = self.model_self.input_layer
 
-        loss_history, val_loss_history = self.fit_semi(X, y, X, X_val, y_val, p_m=self.params["p_m"],
-                                                       K=self.params["K"], beta=self.params["beta"])
+        loss_history, val_loss_history = self.fit_semi(X, y, X, X_val, y_val, p_m=self.params.get("p_m",0.1),
+                                                       K=self.params.get("K",2), beta=self.params.get("beta",0.1))
 
         self.load_model(filename_extension="best", directory="tmp")
         return loss_history, val_loss_history

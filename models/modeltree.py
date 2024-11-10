@@ -1,4 +1,4 @@
-from modeltree import ModelTreeRegressor, ModelTreeClassifier
+from modeltrees import ModelTreeRegressor, ModelTreeClassifier
 from models.basemodel import BaseModel
 
 import numpy as np
@@ -25,7 +25,7 @@ class ModelTree(BaseModel):
             self.model = ModelTreeClassifier(**self.params)
 
     def fit(self, X, y, X_val=None, y_val=None):
-        X = np.array(X, dtype=np.float)
+        X = np.array(X, dtype=np.float64)
         return super().fit(X, y, X_val, y_val)
 
     @classmethod

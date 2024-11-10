@@ -24,9 +24,9 @@ class RLN(BaseModel):
     def __init__(self, params, args):
         super().__init__(params, args)
 
-        lr = np.power(10, self.params["log_lr"])
-        build_fn = self.RLN_Model(layers=self.params["layers"], norm=self.params["norm"],
-                                  avg_reg=self.params["theta"], learning_rate=lr)
+        lr = np.power(10, self.params.get("log_lr",5))
+        build_fn = self.RLN_Model(layers=self.params.get("layers",2), norm=self.params.get("norm",1),
+                                  avg_reg=self.params.get("theta",-12), learning_rate=lr)
 
         arguments = {
             'build_fn': build_fn,

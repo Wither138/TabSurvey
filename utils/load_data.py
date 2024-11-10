@@ -112,7 +112,8 @@ def load_data(args):
         label_col = '序号'        #标签列
         
         X = df.drop(label_col, axis=1).to_numpy()       #从一个DataFrame中删除指定的列，然后将剩余的数据转换为NumPy数组
-        y = df[label_col].to_numpy()                #将label列转换为NumPy数组
+        #X = df.drop(label_col, axis=1).iloc[:, [2, 3]].to_numpy()  # 只保留第三列和第四列数据
+        y = df[label_col].to_numpy()  # 将label列转换为NumPy数组
         
     else:
         raise AttributeError("Dataset \"" + args.dataset + "\" not available")

@@ -36,7 +36,7 @@ class BaseModelTorch(BaseModel):
         return torch.device(device)
 
     def fit(self, X, y, X_val=None, y_val=None):
-        optimizer = optim.AdamW(self.model.parameters(), lr=self.params["learning_rate"])
+        optimizer = optim.AdamW(self.model.parameters(), lr=self.params.get("learning_rate",0.01))
 
         X = torch.tensor(X).float()
         X_val = torch.tensor(X_val).float()

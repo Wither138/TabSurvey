@@ -36,8 +36,10 @@ RUN /opt/conda/envs/gbdt/bin/python -m pip install lightgbm -i https://pypi.tuna
 RUN /opt/conda/bin/conda install -n gbdt -y -c conda-forge optuna
 RUN /opt/conda/bin/conda install -n gbdt -y -c conda-forge configargparse
 RUN /opt/conda/bin/conda install -n gbdt -y pandas
+RUN /opt/conda/bin/conda install -n gbdt -y pytorch torchvision torchaudio cpuonly -c pytorch
+RUN /opt/conda/bin/conda install -n gbdt -y openpyxl
 
-# For ModelTrees
+# For ModelTree ok
 RUN /opt/conda/envs/gbdt/bin/python -m pip install https://github.com/schufa-innovationlab/model-trees/archive/master.zip
 
 #############################################################################################################
@@ -54,9 +56,10 @@ RUN /opt/conda/bin/conda install -n torch -y pandas
 RUN /opt/conda/bin/conda install -n torch -y matplotlib
 RUN /opt/conda/bin/conda install -n torch -y -c pytorch captum
 RUN /opt/conda/bin/conda install -n torch -y shap
+RUN /opt/conda/bin/conda install -n torch -y keras
 RUN /opt/conda/envs/gbdt/bin/python -m ipykernel install --user --name=torch
 
-# For TabNet
+# For TabNet ok
 RUN /opt/conda/envs/torch/bin/python -m pip install pytorch-tabnet
 
 # For NODE
@@ -66,7 +69,7 @@ RUN /opt/conda/envs/torch/bin/python -m pip install qhoptim
 # For DeepGBM
 RUN /opt/conda/envs/torch/bin/python -m pip install lightgbm
 
-# For TabTransformer
+# For TabTransformer ok
 RUN /opt/conda/envs/torch/bin/python -m pip install einops
 
 #############################################################################################################
@@ -90,7 +93,7 @@ RUN /opt/conda/envs/torch/bin/python -m pip install stg==0.1.2
 #RUN /opt/conda/envs/torch/bin/python -m pip install https://github.com/AmrMKayid/nam/archive/main.zip
 RUN /opt/conda/envs/torch/bin/python -m pip install tabulate
 
-# For DANet
+# For DANet ok
 RUN /opt/conda/envs/torch/bin/python -m pip install yacs
 
 #############################################################################################################

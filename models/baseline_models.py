@@ -47,9 +47,9 @@ class KNN(BaseModel):
         super().__init__(params, args)
 
         if args.objective == "regression":
-            self.model = neighbors.KNeighborsRegressor(n_neighbors=params["n_neighbors"], n_jobs=-1)
+            self.model = neighbors.KNeighborsRegressor(n_neighbors=params.get("n_neighbors", 5), n_jobs=-1)
         elif args.objective == "classification" or args.objective == "binary":
-            self.model = neighbors.KNeighborsClassifier(n_neighbors=params["n_neighbors"], n_jobs=-1)
+            self.model = neighbors.KNeighborsClassifier(n_neighbors=params.get("n_neighbors", 5), n_jobs=-1)
 
     def fit(self, X, y, X_val=None, y_val=None):
         max_samples = 10000
@@ -81,7 +81,7 @@ class SVM(BaseModel):
         super().__init__(params, args)
 
         if args.objective == "regression":
-            self.model = svm.SVR(C=params["C"])
+            self.model = svm.SVR(C=params.get("C",1e-10))
         elif args.objective == "classification" or args.objective == "binary":
             self.model = svm.SVC(C=params["C"], probability=True)
 
@@ -106,7 +106,7 @@ class DecisionTree(BaseModel):
         super().__init__(params, args)
 
         if args.objective == "regression":
-            self.model = tree.DecisionTreeRegressor(max_depth=params["max_depth"])
+            self.model = tree.DecisionTreeRegressor(max_depth=params.get("max_depth",2))
         elif args.objective == "classification" or args.objective == "binary":
             self.model = tree.DecisionTreeClassifier(max_depth=params["max_depth"])
 
@@ -131,8 +131,8 @@ class RandomForest(BaseModel):
         super().__init__(params, args)
 
         if args.objective == "regression":
-            self.model = ensemble.RandomForestRegressor(n_estimators=params["n_estimators"],
-                                                        max_depth=params["max_depth"], n_jobs=-1)
+            self.model = ensemble.RandomForestRegressor(n_estimators=params.get("n_estimators",5),
+                                                        max_depth=params.get("max_depth",2), n_jobs=-1)
         elif args.objective == "classification" or args.objective == "binary":
             self.model = ensemble.RandomForestClassifier(n_estimators=params["n_estimators"],
                                                          max_depth=params["max_depth"], n_jobs=-1)
