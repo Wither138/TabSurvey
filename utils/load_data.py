@@ -73,6 +73,20 @@ def load_data(args):
         X = df[features].to_numpy()
         y = df[label].to_numpy()
 
+    elif args.dataset == "AdultNum": # Binary classification dataset with numerical data
+        url_data = "https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data"
+
+        features = ['age', 'fnlwgt', 'education_num', 'capital-gain', 'capital-loss', 'hours-per-week']
+        label = "income"
+        columns = features + [label]
+        df = pd.read_csv(url_data, names=columns)
+
+        # Fill NaN with something better?
+        df.fillna(0, inplace=True)
+
+        X = df[features].to_numpy()
+        y = df[label].to_numpy()
+    
     elif args.dataset == "HIGGS":  # Binary classification dataset with one categorical feature
         path = "/opt/notebooks/data/HIGGS.csv.gz"       #??
         df = pd.read_csv(path, header=None)
@@ -112,7 +126,7 @@ def load_data(args):
         label_col = '序号'        #标签列
         
         X = df.drop(label_col, axis=1).to_numpy()       #从一个DataFrame中删除指定的列，然后将剩余的数据转换为NumPy数组
-        #X = df.drop(label_col, axis=1).iloc[:, [2, 3]].to_numpy()  # 只保留第三列和第四列数据
+        #X = df.drop(label_col, axis=1).iloc[1:].to_numpy()  # 从一个DataFrame中删除指定的列，然后将剩余的数据去掉第一行并转换为NumPy数组
         y = df[label_col].to_numpy()  # 将label列转换为NumPy数组
         
     else:
@@ -122,11 +136,13 @@ def load_data(args):
     print(X.shape)
 
     # Preprocess target
+    print("args.target_encode is", args.target_encode)
     if args.target_encode:
         le = LabelEncoder()
         y = le.fit_transform(y)
 
         # Setting this if classification task
+        print("args.objective is", args.objective)
         if args.objective == "classification":
             args.num_classes = len(le.classes_)
             print("Having", args.num_classes, "classes as target.")
@@ -135,6 +151,8 @@ def load_data(args):
     args.cat_dims = []
 
     # Preprocess data
+    print("args.num_features is", args.num_features)
+    print("args.cat_idx is", args.cat_idx)
     for i in range(args.num_features):
         if args.cat_idx and i in args.cat_idx:
             le = LabelEncoder()
@@ -145,12 +163,15 @@ def load_data(args):
 
         else:
             num_idx.append(i)
+    print("num_idx is", num_idx)
 
+    print("args.scale is", args.scale)
     if args.scale:
         print("Scaling the data...")
         scaler = StandardScaler()
         X[:, num_idx] = scaler.fit_transform(X[:, num_idx])
 
+    print("args.one_hot_encode is", args.one_hot_encode)
     if args.one_hot_encode:
         ohe = OneHotEncoder(sparse=False, handle_unknown='ignore')
         new_x1 = ohe.fit_transform(X[:, args.cat_idx])
